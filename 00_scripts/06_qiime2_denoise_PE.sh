@@ -5,7 +5,8 @@ OUTPUT=/scratch_vol1/fungi/Porifera_eDNA_multi_marker/05_QIIME2/visual
 
 METADATA=/scratch_vol1/fungi/Porifera_eDNA_multi_marker/98_database_files/sample-metadata.tsv
 # negative control sample :
-NEG_CONTROL=/scratch_vol1/fungi/Porifera_eDNA_multi_marker/98_database_files/Negative_control_Sample_RepSeq_V4.qza
+#NEG_CONTROL=/scratch_vol1/fungi/Porifera_eDNA_multi_marker/98_database_files/Negative_control_Sample_RepSeq_V4.qza
+NEG_CONTROL=/scratch_vol1/fungi/Porifera_eDNA_multi_marker/99_contamination
 
 # https://chmi-sops.github.io/mydoc_qiime2.html
 
@@ -48,8 +49,19 @@ qiime dada2 denoise-paired --i-demultiplexed-seqs core/demux.qza \
 
 # Here --i-reference-sequences correspond to the negative control sample (if you don't have any, like here, take another one from an old project, the one here is from the same sequencing line (but not same project))
 
+ # 001_mini_pipeline_for_contaminated_sequences
+ 
+# CATCH some ASV Solanum_crop_diversity/05_QIIME2/ITS/export/core/RepSeq
+# Blast them in order to catch non necessaries ASV (uncultured, unknown, etc..)
+# Paste them in a contamination_seq.fasta file, then :
+ 
+ qiime tools import \
+  --input-path $NEG_CONTROL/contamination_seq.fasta \
+  --output-path $NEG_CONTROL/contamination_seq.qza \
+  --type 'FeatureData[Sequence]'
+
 qiime quality-control exclude-seqs --i-query-sequences core/RepSeq.qza \
-      					     --i-reference-sequences $NEG_CONTROL \
+      					     --i-reference-sequences $NEG_CONTROL/contamination_seq.qza \
       					     --p-method vsearch \
       					     --p-threads 6 \
       					     --p-perc-identity 1.00 \
