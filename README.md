@@ -35,7 +35,7 @@ For install QIIME2, please refer to http://qiime.org/install/install.html
 
 
     # Put you in your working directory
-    cd /scratch_vol1/fungi/Rhabdastrella_globostellata_microbiome/00_scripts
+    cd /scratch_vol1/fungi/Porifera_eDNA_multi_marker/00_scripts
     
     
     # For run all pipeline, lunch only this command line : 
