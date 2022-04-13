@@ -13,12 +13,12 @@ cd $WORKING_DIRECTORY
 eval "$(conda shell.bash hook)"
 conda activate qiime2-2021.4
 
-# Note: max-depth should be chosen based on ConTable.qzv
+# Note: max-depth should be chosen based on ConTable.qzv (or on /scratch_vol1/fungi/Porifera_eDNA_multi_marker/05_QIIME2/export/visual/ConTable/sample-frequency-detail.csv)
 
 qiime diversity alpha-rarefaction \
   --i-table core/ConTable.qza \
   --i-phylogeny tree/rooted-tree.qza \
-  --p-max-depth 69431 \
+  --p-max-depth 69046 \
   --p-min-depth 1 \
   --m-metadata-file $DATABASE/sample-metadata.tsv \
   --o-visualization visual/alpha-rarefaction.qzv
